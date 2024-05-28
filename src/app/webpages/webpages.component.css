@@ -1,0 +1,66 @@
+.add-webpage-container {
+  display: flex;
+  align-items: center; /* Vertically center the items */
+}
+
+.add-webpage-button {
+  margin-left: 10px; /* Add margin between the input and button */
+}
+
+.toolbar-container {
+  display: flex;
+  margin-bottom: 20px; /* Add spacing between the toolbar and the list */
+}
+
+.Filter-by {
+  margin-left: 10px; /* Add margin between the input and button */
+  width: 250px;
+}
+
+ul {
+  list-style-type: none; /* Removes the default bullet points */
+}
+
+/* Parent container to avoid stretching */
+.container {
+display: flex;
+flex-direction: column; /* Vertical layout */
+align-items: flex-start; /* Items start from the left */
+justify-content: flex-start; /* Items at the top */
+width: 100%; /* Parent container full width */
+}
+
+/* Keeping elements within their boundaries */
+mat-list {
+  padding: 10px; /* Adds spacing around each list item */
+  border: 1px solid #ccc;
+  margin-bottom: 10px; /* Adds space between list items */
+}
+
+mat-list-item {
+  padding: -10px; /* Adds spacing around each list item */
+  margin-bottom: -10px; /* Adds space between list items */
+}
+
+a {
+  text-decoration: none; /* Removes underline from links */
+  color: inherit; /* Keeps the link color consistent with text color */
+}
+
+.example-full-width{
+  width: 472px;
+}
+
+.list-container {
+  padding: 10px;
+}
+
+.list-item-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.webpage-info {
+  flex: 1;
+}

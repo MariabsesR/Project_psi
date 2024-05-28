@@ -1,0 +1,61 @@
+<div class="add-webpage-container">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Website</mat-label>
+      <input matInput #url [formControl]="urlControl" placeholder="Ex. https://example.com">
+      <mat-error *ngIf="urlControl.hasError('invalidUrl')">Invalid URL format</mat-error>
+    </mat-form-field>
+  </form>
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button mat-stroked-button color="primary" class="add-webpage-button" (click)="add(url.value); url.value = '';">
+    Add website
+  </button>
+</div>
+
+<div class="toolbar-container">
+  <mat-form-field class="Sort-by">
+    <mat-label>Sort by</mat-label>
+    <mat-select (selectionChange)="onSortByChange($event.value)">
+      <mat-option value="registryAsc" (click)="sortByRegisteredAsc()">Registry date (Ascending)</mat-option>
+      <mat-option value="registryDesc" (click)="sortByRegisteredDesc()">Registry date (Descending)</mat-option>
+      <mat-option value="lastEvaluationAsc" (click)="sortByEvaluationAsc()">Last evaluation date (Ascending)</mat-option>
+      <mat-option value="lastEvaluationDesc" (click)="sortByEvaluationDesc()">Last evaluation date (Descending)</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="Filter-by">
+    <mat-label>Filter by monitoring status</mat-label>
+    <mat-select [(ngModel)]="selectedStatus" (selectionChange)="filterByStatus($event.value)">
+      <mat-option [value]="''">All</mat-option> <!-- Default option to show all webpages -->
+      <mat-option value="por avaliar">Pending</mat-option>
+      <mat-option value="em progresso">In progress</mat-option>
+      <mat-option value="avaliado">Evaluated</mat-option>
+      <mat-option value="erro">Error</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<h1>Websites</h1>
+<div class="list-container">
+  <mat-list *ngFor="let webpage of webpages">
+    <div class="list-item-wrapper" >
+      <div class="webpage-info">
+        <a routerLink="/detail/{{webpage._id}}">
+        <mat-list-item><strong>URL:</strong> {{webpage.url}}</mat-list-item>
+        <mat-list-item><strong>Registered:</strong> {{webpage.registered}}</mat-list-item>
+        <mat-list-item><strong>Last Evaluation:</strong> {{webpage.lastEvaluation}}</mat-list-item>
+        <mat-list-item><strong>Status:</strong> {{webpage.status}}</mat-list-item>
+      </a>
+      </div>
+      <button mat-button color="primary" (click)="openSelectionDialog(webpage)">
+        Start Accessibility Evaluation
+      </button>
+      <button mat-icon-button [matTooltip]="'Remove website'" class="delete" (click)="handleDeleteButtonClick(webpage)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-list>
+</div>
+
+

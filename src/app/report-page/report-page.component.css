@@ -1,0 +1,17 @@
+.dialog-content {
+    max-height: 80vh; /* Set maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 16px; /* Add padding */
+  }
+  
+  .accessibility-indicators,
+  .error-details,
+  .error-codes {
+    margin-bottom: 16px; /* Add margin to separate sections */
+  }
+  
+  .mat-dialog-container {
+    width: 80vw; /* Set maximum width */
+    max-width: 800px; /* Ensure it doesn't exceed a certain width */
+  }
+  

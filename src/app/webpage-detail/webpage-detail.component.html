@@ -1,0 +1,62 @@
+<div class="add-page-container">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Page</mat-label>
+      <input matInput #url [formControl]="urlControl" placeholder="Ex. https://example.com/page">
+      <mat-error *ngIf="getFirstError() === 'invalidUrl'">Invalid URL format</mat-error>
+      <mat-error *ngIf="getFirstError() === 'domainMismatch'">URL domain must match</mat-error>
+    </mat-form-field>
+  </form>
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button mat-stroked-button color="primary" class="add-page-button" (click)="addPage(url.value); url.value = '';">
+    Add page
+  </button>
+</div>
+
+<button mat-stroked-button color="primary" *ngIf="webpage" (click)="calculateMetrics(webpage)">
+  Evaluation report
+</button>
+
+<button mat-stroked-button color="primary" *ngIf="webpage" (click)="generateReport(webpage._id, 'html')">
+  Generate HTML Report
+</button>
+
+<button mat-stroked-button color="primary" *ngIf="webpage" (click)="generateReport(webpage._id, 'pdf')">
+  Generate PDF Report
+</button>
+
+<button mat-flat-button color="warn" class="deleteButton" *ngIf="webpage" (click)="handleDeleteButtonClick(webpage)">
+  Delete website
+</button>
+
+
+<h1>Details</h1>
+<div class="list-container">
+  <mat-list *ngIf="webpage">
+    <mat-list-item><strong>URL:</strong> {{webpage.url}}</mat-list-item>
+    <mat-list-item><strong>Registered:</strong> {{webpage.registered}}</mat-list-item>
+    <mat-list-item><strong>Last Evaluation:</strong> {{webpage.lastEvaluation}}</mat-list-item>
+  </mat-list>
+</div>
+
+<h1>Pages</h1>
+<button mat-icon-button [matTooltip]="'Remove webpages'" class="delete" (click)="deletePages()" [disabled]="selectedPages.length === 0">
+  <mat-icon>delete</mat-icon>
+</button>
+<div class="list-container" *ngIf="webpage && webpage.pages">
+  <mat-list *ngFor="let page of webpage.pages">
+    <div class="list-item-wrapper" >
+      <mat-checkbox color="primary" class="example-margin" [checked]="selectedPages.includes(page._id)" (change)="handleCheckboxChange(page._id, $event.checked)"></mat-checkbox>
+      <div class="page-info">
+        <mat-list-item><strong>URL:</strong> {{page.url}}</mat-list-item>
+        <mat-list-item><strong>Registered:</strong> {{page.registered}}</mat-list-item>
+        <mat-list-item><strong>Last Evaluation:</strong> {{page.lastEvaluation}}</mat-list-item>
+        <mat-list-item><strong>Status:</strong> {{page.status}}</mat-list-item>
+      </div>
+      <button mat-stroked-button color="primary" (click)="openPageReport(page)">
+        View Page Report
+      </button>
+    </div>
+  </mat-list>
+</div>

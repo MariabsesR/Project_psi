@@ -1,0 +1,98 @@
+<div mat-dialog-content class="dialog-content">
+  <div class="accessibility-indicators">
+    <h2 mat-dialog-title>Accessibility Metrics for {{ data.page.url }}</h2>
+    <p>Total Tests: {{ data.page.totalTests }}</p>
+    <p>
+      Tests Passed: {{ data.page.testsPassed }}
+      ({{ data.page.totalTests ? (data.page.testsPassed / data.page.totalTests * 100).toFixed(2) : 0 }}%)
+    </p>
+    <p>
+      Tests With Warnings: {{ data.page.testsWithWarnings }}
+      ({{ data.page.totalTests ? (data.page.testsWithWarnings / data.page.totalTests * 100).toFixed(2) : 0 }}%)
+    </p>
+    <p>
+      Failed Tests: {{ data.page.failedTests }}
+      ({{ data.page.totalTests ? (data.page.failedTests / data.page.totalTests * 100).toFixed(2) : 0 }}%)
+    </p>
+    <p>
+      Non-Applicable Tests: {{ data.page.nonApplicableTests }}
+      ({{ data.page.totalTests ? (data.page.nonApplicableTests / data.page.totalTests * 100).toFixed(2) : 0 }}%)
+    </p>
+  </div>
+
+  <div class="error-details">
+    <h2>Error Details</h2>
+    <p>A-level Errors: {{ data.page.errorsA }}</p>
+    <p>AA-level Errors: {{ data.page.errorsAA }}</p>
+    <p>AAA-level Errors: {{ data.page.errorsAAA }}</p>
+  </div>
+
+  <div class="filter-options">
+    <h2>Filter Results</h2>
+    <div>
+      <label for="testType">Test Type:</label>
+      <mat-select id="testType" [(ngModel)]="filterCriteria.testType" (selectionChange)="filterTests()">
+        <mat-option value="">All</mat-option>
+        <mat-option value="ACT Rule">ACT Rule</mat-option>
+        <mat-option value="WCAG Technique">WCAG Technique</mat-option>
+      </mat-select>
+    </div>
+    <div>
+      <label for="result">Result:</label>
+      <mat-select id="result" [(ngModel)]="filterCriteria.result" (selectionChange)="filterTests()">
+        <mat-option value="">All</mat-option>
+        <mat-option value="Passed">Passed</mat-option>
+        <mat-option value="Warning">Warning</mat-option>
+        <mat-option value="Failed">Failed</mat-option>
+        <mat-option value="Not applicable">Not Applicable</mat-option>
+      </mat-select>
+    </div>
+    <div>
+      <label for="complianceLevel">Compliance Level:</label>
+      <mat-select id="complianceLevel" [(ngModel)]="filterCriteria.complianceLevel" (selectionChange)="filterTests()">
+        <mat-option value="">All</mat-option>
+        <mat-option value="A">A</mat-option>
+        <mat-option value="AA">AA</mat-option>
+        <mat-option value="AAA">AAA</mat-option>
+      </mat-select>
+    </div>
+  </div>
+
+  <div class="error-codes">
+    <h2>Accessibility Error Codes</h2>
+    <ul>
+      <li *ngFor="let error of errorCounts">
+        {{ error.code }}: {{ error.count }} times
+      </li>
+    </ul>
+  </div>
+
+  <div class="test-results">
+    <h2>Test Results</h2>
+    <ul>
+      <li *ngFor="let test of filteredTests">
+        <h3>{{ test.testType }} - {{ test.testName }}</h3>
+        <p>Result: {{ test.result }}</p>
+        <p>Compliance Level: {{ test.complianceLevel }}</p>
+        <div *ngIf="test.detailedResults.length > 0">
+          <h4>Detailed Results:</h4>
+          <ul>
+            <li *ngFor="let detail of test.detailedResults">
+              <p><strong>Verdict:</strong> {{ detail.verdict }}</p>
+              <p><strong>Description:</strong> {{ detail.description }}</p>
+              <p><strong>Elements:</strong></p>
+              <ul>
+                <li *ngFor="let element of detail.elements">
+                  <p><strong>HTML Code:</strong> {{ element.htmlCode }}</p>
+                  <p><strong>Pointer:</strong> {{ element.pointer }}</p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <button mat-button color="primary" (click)="close()">Close</button>
+</div>

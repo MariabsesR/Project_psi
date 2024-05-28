@@ -1,0 +1,36 @@
+<div mat-dialog-content class="accessibility-indicators">
+  <h2 mat-dialog-title>Accessibility Metrics for {{ data.webpage.url }}</h2>
+  <p>Total Pages: {{ data.webpage.totalPages }}</p>
+  <p>
+    Pages Without Errors: {{ data.webpage.pagesWithoutErrors }}
+    ({{ (data.webpage.pagesWithoutErrors / data.webpage.totalPages * 100).toFixed(2) }}%)
+  </p>
+  <p>
+    Pages With Errors: {{ data.webpage.pagesWithErrors }}
+    ({{ (data.webpage.pagesWithErrors / data.webpage.totalPages * 100).toFixed(2) }}%)
+  </p>
+  <p>
+    Pages With A-level Errors: {{ data.webpage.pagesWithAError }}
+    ({{ (data.webpage.pagesWithAError / data.webpage.totalPages * 100).toFixed(2) }}%)
+  </p>
+  <p>
+    Pages With AA-level Errors: {{ data.webpage.pagesWithAAError }}
+    ({{ (data.webpage.pagesWithAAError / data.webpage.totalPages * 100).toFixed(2) }}%)
+  </p>
+  <p>
+    Pages With AAA-level Errors: {{ data.webpage.pagesWithAAAError }}
+    ({{ (data.webpage.pagesWithAAAError / data.webpage.totalPages * 100).toFixed(2) }}%)
+  </p>
+</div>
+
+<div mat-dialog-content class="top10-errors">
+  <h2>Top 10 Most Common Accessibility Errors</h2>
+  <ul>
+    <li *ngFor="let error of data.webpage.top10Errors | keyvalue">
+      {{ error.key }}: {{ error.value }}
+    </li>
+  </ul>
+</div>
+
+<!-- Close button for the dialog -->
+<button mat-button color="primary" (click)="close()">Close</button>
