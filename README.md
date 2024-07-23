@@ -35,41 +35,47 @@ Sprint 3
     Generate Reports: Export accessibility reports in PDF or HTML format.
 
 How to Run
-Development Server
+Frontend
 
-Run the following command for a development server:
+    
 
-sh
+    ng serve
+    Navigate to http://localhost:4200/. The application will automatically reload if you change any source files.
 
-ng serve
-
-Navigate to http://localhost:4200/. The application will automatically reload if you change any source files.
 Build
 
-To build the project, run:
+    ng build
 
-sh
+Backend
 
-ng build
+    Navigate to the Backend Directory
+    Change to the directory where your backend code is located.
+
+    Install Dependencies
+
+    npm install
+
+Run the Backend Server
+
+    npm start
+
+    By default, the backend server will run on http://localhost:3066/. You can adjust the port and other settings in your configuration files if needed.
+
 
 
 Running on the Server
-
-    SSH Access
-
-    sh
 
 ssh user@yourserver.com
 
 MongoDB Connection
 Update the following connection string with your MongoDB details:
-
-sh
-
 mongodb://<username>:<password>@localhost:27017/<database>?retryWrites=true&authSource=<database>
 
 Run Front-End Server
 
-sh
-
 ng serve --port XXXX --host 0.0.0.0 --disableHostCheck true
+
+Run Back-End Server
+Navigate to the backend directory and start the server:
+
+npm start
